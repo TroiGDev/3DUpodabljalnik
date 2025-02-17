@@ -1,0 +1,13 @@
+to correctly create a draw order of the polygon triangles on the screen a z/depth buffer is used
+since this method requirees calculations for each pixel inside the triangle individualy, to get the triangle pixels a scanline algorithm is used
+instead of pygames draw polygon function
+
+Summary: only draw a pixel of a triangle if any previous drawn pixel isnt closer to the camera (using a z buffer)
+a z buffer is a 2d array mimicing the pixels on the screen but instead of colour values the values represent their depth/distance from screen (z value)
+
+initialize empty z buffer (clear previous frames)
+go through each pixel in the triangles bounding box using scanline algorithm
+	if pixel is inside the triangle
+		get pixels depth by interpolating its z
+		if pixels depth is smaller (closer) than z buffers pixel (any previous pixel drawn for the frame)
+			draw it and update the z buffer
